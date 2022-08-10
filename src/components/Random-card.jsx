@@ -1,8 +1,8 @@
 import { Component } from "react";
 import styled from "styled-components";
 import shield from "../img/mjolnir.png";
-import spinner from "../img/spinner.gif"
 import Error from "./Error";
+import Spinner from "./Spinner"
 
 import marvelService from "../services/marvelService";
 
@@ -42,8 +42,12 @@ const RandomCardWrapper = styled.div`
 				row-gap: 10px;
 				justify-content: space-between;
 				flex-wrap: wrap;
-				button {
+				a {
+					display: flex;
+					justify-content: center;
+					align-items: center;
 					text-transform: uppercase;
+					text-decoration: none;
 					position: relative;
 					width: 101px;
 					height: 38px;
@@ -52,6 +56,7 @@ const RandomCardWrapper = styled.div`
 					font-size: 14px;
 					transition: transform 0.2s ease-in-out 0.1s;
 					cursor: pointer;
+					clip-path: polygon(100% 0, 100% 72%, 86% 100%, 0 100%, 0 30%, 13% 0);
 					&:nth-child(2) {
 						background-color: #5C5C5C;
 						margin-right: 33px;
@@ -62,33 +67,12 @@ const RandomCardWrapper = styled.div`
 					&:nth-child(1) {
 						margin-right: 10px;
 					}
-					&:before {
-						content: "";
-						width: 10px;
-						height: 20px;
-						transform: rotate(0.125turn) translate(-9px, -4px) ;
-						position: absolute;
-						top: 0;
-						left: 0;
-						background-color: white;
-					}
-					&:after {
-						content: "";
-						width: 10px;
-						height: 20px;
-						transform: rotate(0.125turn) translate(9px, 4px);
-						position: absolute;
-						bottom: 0;
-						right: 0;
-						background-color: white;
-					}
 					&:hover {
 						transform: translateY(-4px);
 						cursor: pointer;
 					}
 					@media (max-width: 1089px) {
 						width: 100%;
-
 					}
 				}
 			}
@@ -157,49 +141,48 @@ const RandomCardWrapper = styled.div`
 `;
 
 export default class RandomCard extends Component {
-	constructor(props) {
-		super(props)
+	componentDidMount() {
 		this.updateChar()
 	}
+	
+	instance = new marvelService()
 
 	state = {
-		char : {},
-		status: "loading"
+		char: null,
+		loading: true,
+		error: false
 	}
 
 	onLoad = () => {
-		this.setState(({char}) => ({
-			char,
-			status: "done"
+		this.setState(() => ({
+			loading: false,
+			error: false
 		}))
 	}
 
 	onError = () => {
-		this.setState(({char}) => ({
-			char,
-			status: "error"
+		this.setState(() => ({
+			char: null,
+			loading: false,
+			error: true
 		}))
 	}
 
-
-	
-
 	updateChar = () => {
-		this.setState((char) => ({
-			char,
-			status: "loading"
-		}))
-		const instance = new marvelService()
-		instance.getCharacter()
+		this.setState({
+			loading: true
+		})
+		this.instance.getCharacter()
 			.then(res => {
-				this.setState(() => ({
-					char : {
+				this.setState({
+					char: {
 						name: res.name,
 						description: res.description,
-						thumbnail: res.thumbnail
-					},
-					status: "done"
-				}))
+						thumbnail: res.thumbnail,
+						homepage: res.homepage,
+						wiki: res.wiki
+					}
+				})
 			})
 			.then(this.onLoad)
 			.catch(this.onError)
@@ -207,40 +190,38 @@ export default class RandomCard extends Component {
 	}
 
 	render() {
-		const currentFragment = (() => {
-			switch (this.state.status) {
-				case "error": 
-					return <Error/>
-				case "done":
-					return (
-						<>
-							<img src={this.state.char.thumbnail} alt="" />
-							<div className="card-info">
-								<h2>{this.state.char.name}</h2>
-								<p>{this.state.char.description}</p>
-								<div className="buttons">
-									<button>Homepage</button>
-									<button>Wiki</button>
-								</div>
-							</div>
-						</>
-					)
-				default: 
-					return (
-						<img style={{
-							width: "50%",
-							margin: "0 auto",
-							height: "190px"
-						}}src={spinner} alt="loading" />
-					)
+		// const currentFragment = (() => {
+		// 	switch (this.state.status) {
+		// 		case "error": 
+		// 			return <Error/>
+		// 		case "done":
+		// 			return (
+		// 				
+		// 			)
+		// 		default: 
+		// 			return (
+		// 				<img style={{
+		// 					margin: "0 auto",
+		// 					width: "50px",
+		// 					height: "50px"
+		// 				}}src={spinner} alt="loading" />
+		// 			)
 					
-			}
-		})()
+		// 	}
+		// })()
+
+		const { loading, error, char } = this.state;
+
+		const _loading = loading ? <Spinner/> : null;
+		const _error = error ? <Error/> : null;
+		const _view = !(_loading || _error) ? <View char={char}/> : null;
 
 		return (
 			<RandomCardWrapper>
 				<div className="card">
-					{currentFragment}
+					{_loading}
+					{_error}
+					{_view}
 				</div>
 				<div className="banner">
 					<h2>Random character for today!</h2> 
@@ -252,5 +233,22 @@ export default class RandomCard extends Component {
 			</RandomCardWrapper>
 		)
 	}
-	
+}
+
+const View = (props) => {
+	const {thumbnail, name, description, homepage, wiki} = props.char;
+
+	return (
+		<>
+			<img src={thumbnail ? thumbnail : "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"} alt="" />
+			<div className="card-info">
+				<h2>{name}</h2>
+				<p>{description}</p>
+				<div className="buttons">
+					<a href={homepage}>Homepage</a>
+					<a href={wiki}>Wiki</a>
+				</div>
+			</div>
+		</>
+	)
 }

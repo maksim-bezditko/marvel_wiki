@@ -13,27 +13,43 @@ const Wrapper = styled.div`
 		margin: 0 auto;
 		padding-left: 10px;
 		padding-right: 10px;
-		.main {
+		.main_part {
 			margin-top: 53px;
 			display: flex;
 			justify-content: space-between;
 		}
 	}
+	.vision {
+		position: fixed;
+		bottom: 0;
+		right: 0;
+	}
 `;
 
 
 export default class App extends Component {
+	state = {
+		id: null
+	}
+
+	changeId = (value) => {
+		this.setState(() => ({
+			id: value
+		}))
+	}
+
 	render() {
 		return (
 			<Wrapper>
 				<div className="container">
 					<Header />
 					<RandomCard />
-					<div className="main">
-						<Cards />
-						<Banner/>
+					<div className="main_part">
+						<Cards changeId={this.changeId}/>
+						<Banner charId={this.state.id}/>
 					</div>
 				</div>
+				<br /><br /><br /><br /><br />
 			</Wrapper>
 		)
 	}

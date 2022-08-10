@@ -9,13 +9,14 @@ const ErrorItem = styled.div`
 	width: 100%;
 	img {
 		margin-left: 30px;
+		height: ${(props) => props.height ? props.height + "px" : "auto"};
 	}
 `;
 
 export default class Error extends Component {
 	render() {
 		return (
-			<ErrorItem>
+			<ErrorItem height={this.props.height}> 
 				<img src={errorGif} alt="error" />
 			</ErrorItem>
 		)

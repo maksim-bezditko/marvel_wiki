@@ -1,52 +1,8 @@
 import { Component } from "react";
 import styled from "styled-components";
-import img from "../img/abyss.jpg"
+import Card from "./Card";
 
-const CardWrapper = styled.div`
-	height: 318px;
-	width: 200px;
-	flex-basis: 30.3%;
-	.card {
-		display: flex;
-		flex-direction: column;
-		transition: all 0.2s;
-		&:hover {
-			box-shadow: 0px 5px 20px #9F0013;
-			cursor: pointer;
-		}
-	}
-	.card img {
-		width: 200px;
-		height: 200px;
-	}
-	.card {
-		.name {
-			width: 200px;
-			height: 118px;
-			padding: 15px;
-			text-transform: uppercase;
-			font-weight: 700;
-			background-color: #232222;
-			color: white;
-		}
-	}
-`;
-
-class Card extends Component {
-	render() {
-		return (
-			<CardWrapper>
-				<div className="card">
-					<img src={img} alt="" />
-					
-					<div className="name">
-						Abyss
-					</div>
-				</div>
-			</CardWrapper>
-		)
-	}
-} 
+import marvelServices from "../services/marvelService"
 
 const AllCards = styled.div`
 	display: flex;
@@ -56,19 +12,51 @@ const AllCards = styled.div`
 	max-width: 650px;
 `;
 
+const marvelService = new marvelServices();
+
 export default class Cards extends Component {
-	render() {
+	state = {
+		data: [],
+		active: null
+	}
+
+	componentDidMount() {
+		marvelService.getCharacters()
+			.then((res) => {
+				this.setState(() => ({
+					data: res
+				}))
+			})
+	}
+
+	makeActive = (id) => {
+		this.setState({
+			active: id
+		})
+	}
+
+	render() {		
+		const cards = this.state.data.map((item) => {
+
+			const onClick = () => {
+				this.makeActive(item.id)
+				this.props.changeId(item.id)
+			}
+
+			return (
+				<Card 
+					name={item.name} 
+					makeActive={this.makeActive} 
+					thumbnail={item.thumbnail} 
+					key={item.id} 
+					onClick={onClick}
+					active={this.state.active === item.id}
+					/>)
+		})
+
 		return (
 			<AllCards>
-				<Card/>
-				<Card/>
-				<Card/>
-				<Card/>
-				<Card/>
-				<Card/>
-				<Card/>
-				<Card/>
-				<Card/>
+				{cards}
 			</AllCards>
 		)
 	}
