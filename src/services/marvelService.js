@@ -44,8 +44,8 @@ export default class marvelService {
 		}
 	}
 
-	async getCharacters() {
-		const res = await this.getResource(`${this._apibase}characters?limit=9&offset=210&${this._apikey}`);
+	async getCharacters(offset = 0) {
+		const res = await this.getResource(`${this._apibase}characters?limit=9&offset=${offset}&${this._apikey}`);
 		return res.data.results.map(this._transformChar);
 	}
 

@@ -132,13 +132,15 @@ const BannerWrapper = styled.div`
 		display: none;  /* Safari and Chrome */
 	}
 	width: 425px;
-	height: 763px;
+	align-self: flex-start;
 	background-color: white;
 	overflow-y: scroll;
 	padding: 25px;
 	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
-	margin-bottom: 100px;
-	position: relative;
+	/* position: relative; */
+	position: -webkit-sticky;
+  	position: sticky;
+  	top: 10px;
 	img {
 		display: block;
 	}
