@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/marvel_wiki/static/css/main.a270c9fd.css",
+    "main.js": "/marvel_wiki/static/js/main.756974f2.js",
+    "static/media/mjolnir.png": "/marvel_wiki/static/media/mjolnir.61f31e1809f12183a524.png",
+    "static/media/error.gif": "/marvel_wiki/static/media/error.42292aa12b6bc303ce99.gif",
+    "index.html": "/marvel_wiki/index.html",
+    "main.a270c9fd.css.map": "/marvel_wiki/static/css/main.a270c9fd.css.map",
+    "main.756974f2.js.map": "/marvel_wiki/static/js/main.756974f2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a270c9fd.css",
+    "static/js/main.756974f2.js"
+  ]
+}
