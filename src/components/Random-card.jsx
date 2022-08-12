@@ -29,13 +29,24 @@ const RandomCardWrapper = styled.div`
 				margin-bottom: 10px;
 				margin-top: 0;
 				text-transform: uppercase;
+				justify-content: flex-start;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				max-width: 250px;
 			}
 			p {
 				font-size: 14px;
 				line-height: 16.41px;
 				margin-bottom: 13px;
-				min-height: 90px;
+				/* overflow-y: scroll; */
+				min-height: 80px;
 				width: 265px;
+				display: -webkit-box;
+				-webkit-line-clamp: 5;
+				-webkit-box-orient: vertical;  
+				overflow: hidden;
+
 			}
 			.buttons {
 				display: flex;
@@ -170,7 +181,8 @@ export default class RandomCard extends Component {
 
 	updateChar = () => {
 		this.setState({
-			loading: true
+			loading: true,
+			error: false
 		})
 		this.instance.getCharacter()
 			.then(res => {
@@ -190,25 +202,6 @@ export default class RandomCard extends Component {
 	}
 
 	render() {
-		// const currentFragment = (() => {
-		// 	switch (this.state.status) {
-		// 		case "error": 
-		// 			return <Error/>
-		// 		case "done":
-		// 			return (
-		// 				
-		// 			)
-		// 		default: 
-		// 			return (
-		// 				<img style={{
-		// 					margin: "0 auto",
-		// 					width: "50px",
-		// 					height: "50px"
-		// 				}}src={spinner} alt="loading" />
-		// 			)
-					
-		// 	}
-		// })()
 
 		const { loading, error, char } = this.state;
 

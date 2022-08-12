@@ -1,10 +1,9 @@
 export default class marvelService {
-	_apikey = "apikey=e101ce83ee9e2f3946b05f31c377c51c";
+	_apikey = "apikey=0917241e4e7ff8f0b52616e4b1ecf3ea";  //apikey=0917241e4e7ff8f0b52616e4b1ecf3ea
 	_apibase = "https://gateway.marvel.com:443/v1/public/"
 
 
 	async getResource(url) {
-		console.log("request")
 		const res = await fetch(url)
 		if (!res.ok) {
 			throw new Error(`Couldn't fetch a character data ${url}, status: ${res.status}`)

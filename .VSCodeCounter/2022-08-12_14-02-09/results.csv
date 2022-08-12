@@ -1,0 +1,16 @@
+"filename", "language", "JavaScript", "CSS", "JavaScript React", "comment", "blank", "total"
+"c:\MAMP\htdocs\marvel_wiki\src\components\App.jsx", "JavaScript React", 0, 0, 56, 0, 5, 61
+"c:\MAMP\htdocs\marvel_wiki\src\components\Banner.jsx", "JavaScript React", 0, 0, 240, 0, 17, 257
+"c:\MAMP\htdocs\marvel_wiki\src\components\Card-info.jsx", "JavaScript React", 0, 0, 0, 0, 1, 1
+"c:\MAMP\htdocs\marvel_wiki\src\components\Card.jsx", "JavaScript React", 0, 0, 47, 0, 2, 49
+"c:\MAMP\htdocs\marvel_wiki\src\components\Cards.jsx", "JavaScript React", 0, 0, 163, 2, 18, 183
+"c:\MAMP\htdocs\marvel_wiki\src\components\Error.jsx", "JavaScript React", 0, 0, 22, 0, 2, 24
+"c:\MAMP\htdocs\marvel_wiki\src\components\ErrorBoundary.jsx", "JavaScript React", 0, 0, 17, 0, 4, 21
+"c:\MAMP\htdocs\marvel_wiki\src\components\Header.jsx", "JavaScript React", 0, 0, 39, 0, 2, 41
+"c:\MAMP\htdocs\marvel_wiki\src\components\Random-card.jsx", "JavaScript React", 0, 0, 232, 0, 15, 247
+"c:\MAMP\htdocs\marvel_wiki\src\components\Skeleton.jsx", "JavaScript React", 0, 0, 67, 0, 4, 71
+"c:\MAMP\htdocs\marvel_wiki\src\components\Spinner.jsx", "JavaScript React", 0, 0, 11, 0, 3, 14
+"c:\MAMP\htdocs\marvel_wiki\src\index.css", "CSS", 0, 22, 0, 7, 4, 33
+"c:\MAMP\htdocs\marvel_wiki\src\index.js", "JavaScript", 10, 0, 0, 0, 2, 12
+"c:\MAMP\htdocs\marvel_wiki\src\services\marvelService.js", "JavaScript", 44, 0, 0, 0, 7, 51
+"Total", "-", 54, 22, 894, 9, 86, 1065

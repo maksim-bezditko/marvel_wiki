@@ -4,6 +4,7 @@ import Header from "./Header";
 import RandomCard from "./Random-card";
 import Cards from "./Cards";
 import Banner from "./Banner";
+import ErrorBoundary from "./ErrorBoundary";
 
 const Wrapper = styled.div`
 	width: 100%;
@@ -43,9 +44,13 @@ export default class App extends Component {
 			<Wrapper>
 				<div className="container">
 					<Header />
-					<RandomCard />
+					<ErrorBoundary>
+						<RandomCard />
+					</ErrorBoundary>
 					<div className="main_part">
-						<Cards changeId={this.changeId}/>
+						<ErrorBoundary>
+							<Cards changeId={this.changeId}/>
+						</ErrorBoundary>
 						<Banner charId={this.state.id}/>
 					</div>
 				</div>

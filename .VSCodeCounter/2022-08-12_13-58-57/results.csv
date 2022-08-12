@@ -1,0 +1,20 @@
+"filename", "language", "JavaScript", "CSS", "JavaScript React", "JSON", "HTML", "Markdown", "comment", "blank", "total"
+"c:\MAMP\htdocs\marvel_wiki\README.md", "Markdown", 0, 0, 0, 0, 0, 38, 0, 33, 71
+"c:\MAMP\htdocs\marvel_wiki\package-lock.json", "JSON", 0, 0, 0, 28830, 0, 0, 0, 1, 28831
+"c:\MAMP\htdocs\marvel_wiki\package.json", "JSON", 0, 0, 0, 39, 0, 0, 0, 1, 40
+"c:\MAMP\htdocs\marvel_wiki\public\index.html", "HTML", 0, 0, 0, 0, 16, 0, 0, 1, 17
+"c:\MAMP\htdocs\marvel_wiki\src\components\App.jsx", "JavaScript React", 0, 0, 56, 0, 0, 0, 0, 5, 61
+"c:\MAMP\htdocs\marvel_wiki\src\components\Banner.jsx", "JavaScript React", 0, 0, 240, 0, 0, 0, 0, 17, 257
+"c:\MAMP\htdocs\marvel_wiki\src\components\Card-info.jsx", "JavaScript React", 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\MAMP\htdocs\marvel_wiki\src\components\Card.jsx", "JavaScript React", 0, 0, 47, 0, 0, 0, 0, 2, 49
+"c:\MAMP\htdocs\marvel_wiki\src\components\Cards.jsx", "JavaScript React", 0, 0, 163, 0, 0, 0, 2, 18, 183
+"c:\MAMP\htdocs\marvel_wiki\src\components\Error.jsx", "JavaScript React", 0, 0, 22, 0, 0, 0, 0, 2, 24
+"c:\MAMP\htdocs\marvel_wiki\src\components\ErrorBoundary.jsx", "JavaScript React", 0, 0, 17, 0, 0, 0, 0, 4, 21
+"c:\MAMP\htdocs\marvel_wiki\src\components\Header.jsx", "JavaScript React", 0, 0, 39, 0, 0, 0, 0, 2, 41
+"c:\MAMP\htdocs\marvel_wiki\src\components\Random-card.jsx", "JavaScript React", 0, 0, 232, 0, 0, 0, 0, 15, 247
+"c:\MAMP\htdocs\marvel_wiki\src\components\Skeleton.jsx", "JavaScript React", 0, 0, 67, 0, 0, 0, 0, 4, 71
+"c:\MAMP\htdocs\marvel_wiki\src\components\Spinner.jsx", "JavaScript React", 0, 0, 11, 0, 0, 0, 0, 3, 14
+"c:\MAMP\htdocs\marvel_wiki\src\index.css", "CSS", 0, 22, 0, 0, 0, 0, 7, 4, 33
+"c:\MAMP\htdocs\marvel_wiki\src\index.js", "JavaScript", 10, 0, 0, 0, 0, 0, 0, 2, 12
+"c:\MAMP\htdocs\marvel_wiki\src\services\marvelService.js", "JavaScript", 44, 0, 0, 0, 0, 0, 0, 7, 51
+"Total", "-", 54, 22, 894, 28869, 16, 38, 9, 122, 30024

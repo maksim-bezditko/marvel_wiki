@@ -1,0 +1,42 @@
+Date : 2022-08-12 14:02:09
+Directory : c:\MAMP\htdocs\marvel_wiki\src
+Total : 14 files,  970 codes, 9 comments, 86 blanks, all 1065 lines
+
+Languages
++------------------+------------+------------+------------+------------+------------+
+| language         | files      | code       | comment    | blank      | total      |
++------------------+------------+------------+------------+------------+------------+
+| JavaScript React |         11 |        894 |          2 |         73 |        969 |
+| JavaScript       |          2 |         54 |          0 |          9 |         63 |
+| CSS              |          1 |         22 |          7 |          4 |         33 |
++------------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                        | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                           |         14 |        970 |          9 |         86 |      1,065 |
+| components                                                  |         11 |        894 |          2 |         73 |        969 |
+| services                                                    |          1 |         44 |          0 |          7 |         51 |
++-------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| filename                                                    | language         | code       | comment    | blank      | total      |
++-------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| c:\MAMP\htdocs\marvel_wiki\src\components\App.jsx           | JavaScript React |         56 |          0 |          5 |         61 |
+| c:\MAMP\htdocs\marvel_wiki\src\components\Banner.jsx        | JavaScript React |        240 |          0 |         17 |        257 |
+| c:\MAMP\htdocs\marvel_wiki\src\components\Card-info.jsx     | JavaScript React |          0 |          0 |          1 |          1 |
+| c:\MAMP\htdocs\marvel_wiki\src\components\Card.jsx          | JavaScript React |         47 |          0 |          2 |         49 |
+| c:\MAMP\htdocs\marvel_wiki\src\components\Cards.jsx         | JavaScript React |        163 |          2 |         18 |        183 |
+| c:\MAMP\htdocs\marvel_wiki\src\components\Error.jsx         | JavaScript React |         22 |          0 |          2 |         24 |
+| c:\MAMP\htdocs\marvel_wiki\src\components\ErrorBoundary.jsx | JavaScript React |         17 |          0 |          4 |         21 |
+| c:\MAMP\htdocs\marvel_wiki\src\components\Header.jsx        | JavaScript React |         39 |          0 |          2 |         41 |
+| c:\MAMP\htdocs\marvel_wiki\src\components\Random-card.jsx   | JavaScript React |        232 |          0 |         15 |        247 |
+| c:\MAMP\htdocs\marvel_wiki\src\components\Skeleton.jsx      | JavaScript React |         67 |          0 |          4 |         71 |
+| c:\MAMP\htdocs\marvel_wiki\src\components\Spinner.jsx       | JavaScript React |         11 |          0 |          3 |         14 |
+| c:\MAMP\htdocs\marvel_wiki\src\index.css                    | CSS              |         22 |          7 |          4 |         33 |
+| c:\MAMP\htdocs\marvel_wiki\src\index.js                     | JavaScript       |         10 |          0 |          2 |         12 |
+| c:\MAMP\htdocs\marvel_wiki\src\services\marvelService.js    | JavaScript       |         44 |          0 |          7 |         51 |
+| Total                                                       |                  |        970 |          9 |         86 |      1,065 |
++-------------------------------------------------------------+------------------+------------+------------+------------+------------+

@@ -79,7 +79,7 @@ export default class Banner extends Component {
 
 
 		return (
-			<BannerWrapper>
+			<BannerWrapper maxHeight={document.documentElement.clientHeight - 60}>
 				{error}
 				{loading}
 				{skeleton}
@@ -126,11 +126,27 @@ const View = (props) => {
 }
 
 const BannerWrapper = styled.div`
-	-ms-overflow-style: none;  /* Internet Explorer 10+ */
-   scrollbar-width: none;
-	::-webkit-scrollbar { 
-		display: none;  /* Safari and Chrome */
+	/* width */
+	::-webkit-scrollbar {
+		width: 2px;
 	}
+
+	/* Track */
+	::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+		background: #7a7a7a;
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+		background: #555;
+	}
+
+	max-height: ${(props) => props.maxHeight + "px"};
 	width: 425px;
 	align-self: flex-start;
 	background-color: white;

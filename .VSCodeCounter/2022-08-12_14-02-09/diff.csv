@@ -1,0 +1,6 @@
+"filename", "language", "JSON", "HTML", "Markdown", "comment", "blank", "total"
+"c:\MAMP\htdocs\marvel_wiki\README.md", "Markdown", 0, 0, -38, 0, -33, -71
+"c:\MAMP\htdocs\marvel_wiki\package-lock.json", "JSON", -28830, 0, 0, 0, -1, -28831
+"c:\MAMP\htdocs\marvel_wiki\package.json", "JSON", -39, 0, 0, 0, -1, -40
+"c:\MAMP\htdocs\marvel_wiki\public\index.html", "HTML", 0, -16, 0, 0, -1, -17
+"Total", "-", -28869, -16, -38, 0, -36, -28959
