@@ -36,7 +36,7 @@ const CardWrapper = styled.div`
 export default class Card extends Component {
 	render() {
 		return (
-			<CardWrapper onClick={this.props.onClick} active={this.props.active ? "0px 5px 20px #9F0013" : "none"}>
+			<CardWrapper ref={this.props.setRef} onClick={this.props.onClick} active={this.props.active ? "0px 5px 20px #9F0013" : "none"}>
 				<div className="card">
 					<img src={this.props.thumbnail} alt="" />
 					<div className="name">

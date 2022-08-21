@@ -5,12 +5,13 @@ import Error from "./Error";
 
 import marvelServices from "../services/marvelService"
 import Spinner from "./Spinner";
+import "./test.css";
 
 const marvelService = new marvelServices();
 
 export default class Cards extends Component {
 	state = {
-		data: null,
+		data: [],
 		active: null,
 		loading: true,
 		error: false,
@@ -37,7 +38,7 @@ export default class Cards extends Component {
 			loading: false,
 			error: true,
 			active: null,
-			data: null,
+			data: [],
 			offset: null
 		})
 	}
@@ -106,10 +107,51 @@ export default class Cards extends Component {
 		}
 	}
 
+	itemRefs = [];
+
+	setRef = (ref) => {
+		this.itemRefs.push(ref)
+	}
+
+	updateActiveItem = (index) => {
+		this.itemRefs.forEach(item => {
+			item.classList.remove("active1")
+		})
+		this.itemRefs[index].classList.add('active1')
+	}
+
+	renderItems = () => {
+		const cards = this.state.data.map((item, index) => {
+			return (
+				<Card 
+					name={item.name} 
+					makeActive={this.makeActive}
+					thumbnail={item.thumbnail} 
+					key={item.id} 
+					onClick={
+						() => {
+							this.onClick(item)
+							this.updateActiveItem(index)
+						}
+					}
+					setRef={this.setRef}
+					/>)
+		})
+	
+		return (
+			<Wrapper>
+				<AllCards>
+					{cards}
+				</AllCards>
+				{/* {props.loadingMore ? <Spinner/> : null} */}
+			</Wrapper>
+		)
+	}
+
 	render() {
 		const error = this.state.error ? <Error/> : null;
 		const loading = this.state.loading ? <Spinner/> : null;
-		const contents = !(this.state.error || this.state.loading) || !this.state.loading ? <View data={this.state.data} onClick={this.onClick} makeActive={this.makeActive} id={this.state.active} loadingMore={this.state.loadingMore}/> : null;   
+		const contents = !(this.state.error || this.state.loading) || !this.state.loading ? this.renderItems() : null;   
 		return (
 			<>
 				{error}
@@ -118,29 +160,6 @@ export default class Cards extends Component {
 			</>
 		)
 	}
-}
-
-const View = (props) => {
-	const cards = props.data.map((item) => {
-		return (
-			<Card 
-				name={item.name} 
-				makeActive={props.makeActive} 
-				thumbnail={item.thumbnail} 
-				key={item.id} 
-				onClick={() => props.onClick(item)}
-				active={props.id === item.id}
-				/>)
-	})
-
-	return (
-		<Wrapper>
-			<AllCards>
-				{cards}
-			</AllCards>
-			{/* {props.loadingMore ? <Spinner/> : null} */}
-		</Wrapper>
-	)
 }
 
 const Wrapper = styled.div`
