@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {Link, NavLink} from "react-router-dom";
 
 const HeaderWrapper = styled.header`
 	height: 137px;
@@ -18,22 +19,25 @@ const HeaderWrapper = styled.header`
 
 	}
 	.options {
-		.active {
-			color: #9F0013;
-		}
+		a {
 		color: #000000;
 		font-size: 24px;
+		}
 	}
 `;
+
+const styles = {
+	color: "#9F0013"
+}
 
 export default function Header() {
 	return (
 		<HeaderWrapper>
 			<div className="logo">
-				<a href="/"><span>Marvel</span> information portal</a>
+				<Link exact to="/"><span>Marvel</span> information portal</Link>
 			</div>
 			<div className="options">
-				<span className="active">Characters</span> / <span>Comics</span>
+				<NavLink exact to='/' activeStyle={styles}>Characters</NavLink> / <NavLink exact to='/comics' activeStyle={styles}>Comics</NavLink>
 			</div>
 		</HeaderWrapper>		
 	)

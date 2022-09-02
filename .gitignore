@@ -11,6 +11,10 @@
 # production
 /build
 
+# vs-code plugins
+
+/.VSCodeCounter
+
 # misc
 .DS_Store
 .env.local

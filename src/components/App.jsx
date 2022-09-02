@@ -1,12 +1,10 @@
 import styled from "styled-components";
+
 import Header from "./Header";
-import RandomCard from "./Random-card";
-import Cards from "./Cards";
-import Banner from "./Banner";
-import ErrorBoundary from "./ErrorBoundary";
-import { useState } from "react";
-import Ads from "./Ads";
-import ComicsList from "./ComicsList";
+import MainPage from "./pages/MainPage";
+import Comics from "./pages/Comics";
+
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const Wrapper = styled.div`
 	width: 100%;
@@ -38,32 +36,24 @@ const Wrapper = styled.div`
 
 
 export default function App() {
-	const [id, setId] = useState(null);
-
-	const changeId = value => {
-		setId(value)
-	}
 
 	return (
-		<Wrapper>
-			<div className="container">
-				<Header />
-				<ErrorBoundary>
-					<RandomCard />
-				</ErrorBoundary>
-				<div className="characters">
-					<ErrorBoundary>
-						<Cards changeId={changeId}/>
-					</ErrorBoundary>
-					<Banner charId={id}/>
+		<Router>
+			<Wrapper>
+				<div className="container">
+					<Header />
+					<Switch>
+						<Route exact path="/comics">
+							<Comics/>
+						</Route>
+						<Route exact path="/">
+							<MainPage/>
+						</Route>
+					</Switch>
 				</div>
-				{/* <div className="comics">
-					<Ads/>
-					<ComicsList/>
-				</div> */}
-			</div>
-			<br /><br /><br /><br /><br />
-		</Wrapper>
+				<br /><br /><br /><br /><br />
+			</Wrapper>
+		</Router>
 	)
 }
 

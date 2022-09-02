@@ -49,10 +49,12 @@ const ComicsList = () => {
 	const {getComics, loading, error} = useMarvelService();
 
 	useEffect(() => {
-		getComics()
+		getComics(0)
 			.then(comics => {
 				setComicsList(comics)
+				setOffset(prev => prev + 8)
 			})
+		return () => {setComicsList([])}	
 	}, [])
 
 	useEffect(() => {
@@ -76,7 +78,7 @@ const ComicsList = () => {
 			getComics(offset, false)
 				.then((res) => {
 					setComicsList(prev => [...prev, ...res])
-					setOffset(prev => (prev + 9))
+					setOffset(prev => prev + 8)
 				})
 				// .then(onLoad)
 				.catch(onError)
