@@ -1,17 +1,12 @@
-export default class marvelService {
-	_apikey = "apikey=0917241e4e7ff8f0b52616e4b1ecf3ea";  //apikey=0917241e4e7ff8f0b52616e4b1ecf3ea
-	_apibase = "https://gateway.marvel.com:443/v1/public/"
+import useRequest from "../hooks/useRequest.hook"
 
+const useMarvelService = () => {
+	const _apikey = "apikey=0917241e4e7ff8f0b52616e4b1ecf3ea"; 
+	const _apibase = "https://gateway.marvel.com:443/v1/public/";
 
-	async getResource(url) {
-		const res = await fetch(url)
-		if (!res.ok) {
-			throw new Error(`Couldn't fetch a character data ${url}, status: ${res.status}`)
-		}
-		return await res.json()
-	}
+	const {request, loading, error, clearError} = useRequest();
 
-	_transformChar(char) {
+	const _transformChar = (char) => {
 		return {
 			name: char.name,
 			description: char.description,
@@ -22,16 +17,25 @@ export default class marvelService {
 		}
 	}
 
-	async getCharacter() {
-		const id = Math.floor(Math.random() * (1011400 - 1011000 + 1) + 1011000);
-		const res = await this.getResource(`${this._apibase}characters/${id}?${this._apikey}`);
-		return this._transformChar(res.data.results[0])
+	const _transformComics = (comics) => {
+		return {
+			id: comics.id,
+			title: comics.title,
+			thumbnail: comics.thumbnail.path + "." + comics.thumbnail.extension,
+			price: comics.prices[0].price !== 0 ? comics.prices[0].price + "$" : "NOT AVAILABLE",
+		}	
 	}
 
-	async getCharacterById(id) {
-		const res = await this.getResource(`${this._apibase}characters/${id}?${this._apikey}`);
+	const getCharacter = async () => {
+		const id = Math.floor(Math.random() * (1011400 - 1011000 + 1) + 1011000);
+		const res = await request(`${_apibase}characters/${id}?${_apikey}`);
+		return _transformChar(res.data.results[0])
+	}
+
+	const getCharacterById = async (id) => {
+		const res = await request(`${_apibase}characters/${id}?${_apikey}`);
 		const comics = res.data.results[0].comics.items.map(item => item.name)
-		console.log(comics)
+		
 		return {
 			name: res.data.results[0].name,
 			description: res.data.results[0].description,
@@ -43,9 +47,17 @@ export default class marvelService {
 		}
 	}
 
-	async getCharacters(offset = 0) {
-		const res = await this.getResource(`${this._apibase}characters?limit=9&offset=${offset}&${this._apikey}`);
-		return res.data.results.map(this._transformChar);
+	const getCharacters = async (offset = 210, initial) => {
+		const res = await request(`${_apibase}characters?limit=9&offset=${offset}&${_apikey}`, initial);
+		return res.data.results.map(_transformChar);
 	}
 
+	const getComics = async (offset = 0, initial) => {
+		const res = await request(`${_apibase}comics?limit=8&offset=${offset}&${_apikey}`, initial);
+		return res.data.results.map(_transformComics);
+	}
+
+	return {error, loading, getCharacters, getCharacterById, getCharacter, getComics, clearError};
 }
+
+export default useMarvelService;

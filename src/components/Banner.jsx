@@ -1,51 +1,23 @@
-import { Component } from "react";
+import { useMemo, useState, useEffect } from "react";
 import styled from "styled-components";
 import marvelServices from "../services/marvelService";
 import Spinner from "./Spinner";
 import Skeleton from "./Skeleton";
 import Error from "./Error";
+import useMarvelService from "../services/marvelService";
 
-const instance = new marvelServices()
+export default function Banner(props) {
 
-export default class Banner extends Component {
-	state = {
-		error: false,
-		loading: false,
-		char: null
-	}
+	const {error, loading, getCharacterById, getCharacters, clearError} = useMarvelService();
+	const [char, setChar] = useState(null);
 
-	onLoading = () => {
-		this.setState({
-			char: null,
-			error: false,
-			loading: true
-		})
-	}
-
-	onError = () => {
-		this.setState({
-			char: null,
-			error: true,
-			loading: false,
-		})
-	}
-
-	onLoad = () => {
-		this.setState({
-			loading: false,
-			error: false
-		})
-	} 
-
-	updateCharInfo = () => {
-		if (!this.props.charId) {
+	const updateCharInfo = () => {
+		if (!props.charId) {
 			return;
 		}
-		this.onLoading()
-		instance
-			.getCharacterById(this.props.charId)
-			.then((res) => this.setState({
-				char: {
+		setChar(null);
+		getCharacterById(props.charId)
+			.then((res) => setChar({
 					name: res.name,
 					id: res.id,
 					homepage: res.homepage,
@@ -53,40 +25,26 @@ export default class Banner extends Component {
 					description: res.description,
 					comics: res.comics,
 					thumbnail: res.thumbnail
-				}
 			}))
-			.then(this.onLoad)
-			.catch(this.onError)
+			.catch(() => setChar(null))
 	}
 
-	componentDidMount() {
-		this.updateCharInfo()
-	}
+	useEffect(() => updateCharInfo(), [props.charId])
 
-	componentDidUpdate(prevProps) {
-		if (prevProps !== this.props) {
-			this.updateCharInfo()
-		}
-	}
-
-	render() {
-		const {error: err, loading: load, char} = this.state;
-
-		const skeleton = char || load || err ? null : <Skeleton/>;
-		const error = err ? <Error height={400}/> : null;
-		const loading = load ? <Spinner/> : null;
-		const view = (load || err || !char) ? null : <View char={char}/>;
+	const skeleton = char || loading || error ? null : <Skeleton/>;
+	const _error = error ? <Error height={400}/> : null;
+	const _loading = loading ? <Spinner/> : null;
+	const view = (loading || error || !char) ? null : <View char={char}/>;
 
 
-		return (
-			<BannerWrapper maxHeight={document.documentElement.clientHeight - 60}>
-				{error}
-				{loading}
-				{skeleton}
-				{view}
-			</BannerWrapper>
-		)
-	}
+	return (
+		<BannerWrapper maxHeight={document.documentElement.clientHeight - 60}>
+			{_error}
+			{_loading}
+			{skeleton}
+			{view}
+		</BannerWrapper>
+	)
 }
 
 const View = (props) => {

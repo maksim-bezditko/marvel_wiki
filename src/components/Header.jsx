@@ -1,4 +1,3 @@
-import { Component } from "react";
 import styled from "styled-components";
 
 const HeaderWrapper = styled.header`
@@ -9,11 +8,13 @@ const HeaderWrapper = styled.header`
 	font-weight: 700;
 	font-family: "Roboto Condensed";
 	.logo {
-		span {
-			color: #9F0013;
+		a {
+			span {
+				color: #9F0013;
+			}
+			color: #000000;
+			font-size: 28px;
 		}
-		color: #000000;
-		font-size: 28px;
 
 	}
 	.options {
@@ -25,17 +26,15 @@ const HeaderWrapper = styled.header`
 	}
 `;
 
-export default class Header extends Component {
-	render() {
-		return (
-			<HeaderWrapper>
-				<div className="logo">
-					<span>Marvel</span> information portal
-				</div>
-				<div className="options">
-					<span className="active">Characters</span> / <span>Comics</span>
-				</div>
-			</HeaderWrapper>		
-		)
-	}
+export default function Header() {
+	return (
+		<HeaderWrapper>
+			<div className="logo">
+				<a href="/"><span>Marvel</span> information portal</a>
+			</div>
+			<div className="options">
+				<span className="active">Characters</span> / <span>Comics</span>
+			</div>
+		</HeaderWrapper>		
+	)
 }

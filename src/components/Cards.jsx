@@ -1,140 +1,97 @@
-import { Component } from "react";
-import styled from "styled-components";
+import { useState, useEffect, useRef, useMemo } from "react";
+
 import Card from "./Card";
 import Error from "./Error";
-
-import marvelServices from "../services/marvelService"
 import Spinner from "./Spinner";
+
+import useMarvelService from "../services/marvelService"
+import styled from "styled-components";
+
 import "./test.css";
 
-const marvelService = new marvelServices();
+export default function Cards(props) {
+	
+	const {error, loading, getCharacters} = useMarvelService();
 
-export default class Cards extends Component {
-	state = {
-		data: [],
-		active: null,
-		loading: true,
-		error: false,
-		offset: 210,
-		loadingMore: false
+	const [data, setData] = useState([]);
+	const [offset, setOffset] = useState(210);
+
+	const onError = () => {
+		setData([]);
+		setOffset(null);
 	}
 
-	onLoading = () => {
-		this.setState({
-			loading: true,
-			error: false,
-			active: null
-		})
-	}
-
-	onLoadingMore = () => {
-		this.setState({
-			loadingMore: true
-		})
-	}
-
-	onError = () => {
-		this.setState({
-			loading: false,
-			error: true,
-			active: null,
-			data: [],
-			offset: null
-		})
-	}
-
-	onLoad = () => {
-		this.setState({
-			loading: false,
-			error: false,
-			loadingMore: false
-		})
-	}
-
-	componentDidMount() {
-		marvelService.getCharacters(this.state.offset)
+	useEffect(() => {
+		getCharacters(offset)
 			.then((res) => {
-				this.setState(({offset}) => ({
-					data: [...res],
-					offset: offset + 9
-				}))
+				setData([...res])
+				setOffset(offset + 9)
 			})
-			.then(this.onLoad)
-			.catch(this.onError)
-		document.addEventListener("scroll", this.bottom)	
-	}
+			// .then(onLoad)
+			.catch(onError)
+	}, [])
 
-	componentWillUnmount() {
-		document.removeEventListener("scroll", this.bottom)
-	}	
+	useEffect(() => {
+		
+		document.addEventListener("scroll", bottom)
 
-	bottom = () => {
-		const element = document.documentElement;
-		if (element.scrollHeight - element.scrollTop === element.clientHeight) {
-			// this.onLoadingMore()
-			this.loadMore()
+		return () => {
+			document.removeEventListener("scroll", bottom)
 		}
-	}
+	})
 
-	makeActive = (id) => {
-		this.setState({
-			active: id
-		})
-	}
-
-	onClick = (item) => {
-		this.makeActive(item.id)
-		this.props.changeId(item.id)
-	}
-
-	loadMore = () => {
+	const loadMore = () => {
+		
 		try {
-			marvelService.getCharacters(this.state.offset)
+			getCharacters(offset, false)
 				.then((res) => {
-					this.setState(({data, offset}) => ({
-						data: [
-							...data,
-							...res
-						],
-						offset: offset + 9
-					}))
+					setData(prev => [...prev, ...res])
+					setOffset(prev => (prev + 9))
 				})
-				.then(this.onLoad)
-				.catch(this.onError)
+				// .then(onLoad)
+				.catch(onError)
 		}
 		catch(error) {
 			throw new Error("Couldn't load from the server!")
 		}
 	}
 
-	itemRefs = [];
-
-	setRef = (ref) => {
-		this.itemRefs.push(ref)
+	const bottom = () => {
+		const element = document.documentElement;
+		if (element.scrollHeight <= element.clientHeight + element.scrollTop) {
+			loadMore()
+		}
 	}
 
-	updateActiveItem = (index) => {
-		this.itemRefs.forEach(item => {
+	const onClick = (item) => {
+		props.changeId(item.id)
+	}
+
+	const itemRefs = useRef([]); 
+
+	const updateActiveItem = (index) => {
+		itemRefs.current.forEach(item => {
 			item.classList.remove("active1")
 		})
-		this.itemRefs[index].classList.add('active1')
+		itemRefs.current[index].classList.add('active1')
 	}
 
-	renderItems = () => {
-		const cards = this.state.data.map((item, index) => {
+	const renderItems = () => {
+		const cards = data.map((item, index) => {
 			return (
 				<Card 
-					name={item.name} 
-					makeActive={this.makeActive}
+					name={item.name}
 					thumbnail={item.thumbnail} 
 					key={item.id} 
 					onClick={
 						() => {
-							this.onClick(item)
-							this.updateActiveItem(index)
+							onClick(item)
+							updateActiveItem(index)
 						}
 					}
-					setRef={this.setRef}
+					updateRefs={(ref) => {
+						itemRefs.current[index] = ref
+					}}
 					/>)
 		})
 	
@@ -143,23 +100,20 @@ export default class Cards extends Component {
 				<AllCards>
 					{cards}
 				</AllCards>
-				{/* {props.loadingMore ? <Spinner/> : null} */}
 			</Wrapper>
 		)
 	}
 
-	render() {
-		const error = this.state.error ? <Error/> : null;
-		const loading = this.state.loading ? <Spinner/> : null;
-		const contents = !(this.state.error || this.state.loading) || !this.state.loading ? this.renderItems() : null;   
-		return (
-			<>
-				{error}
-				{contents}
-				{loading}
-			</>
-		)
-	}
+	const _error = useMemo(() => error ? <Error/> : null, [error]);
+	const _loading = useMemo(() => loading ? <Spinner/> : null, [loading]);
+	const _contents = useMemo(() => !(error || loading) || !loading ? renderItems() : null, [data]);
+	return (
+		<>
+			{_error}
+			{_contents}
+			{_loading}
+		</>
+	)
 }
 
 const Wrapper = styled.div`

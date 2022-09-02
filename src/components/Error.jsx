@@ -1,4 +1,3 @@
-import { Component } from "react";
 import styled from "styled-components";
 import errorGif from "../img/error.gif";
 
@@ -13,12 +12,10 @@ const ErrorItem = styled.div`
 	}
 `;
 
-export default class Error extends Component {
-	render() {
-		return (
-			<ErrorItem height={this.props.height}> 
-				<img src={errorGif} alt="error" />
-			</ErrorItem>
-		)
-	}
+export default function Error(props) {
+	return (
+		<ErrorItem height={props.height}> 
+			<img src={errorGif} alt="error" />
+		</ErrorItem>
+	)
 }

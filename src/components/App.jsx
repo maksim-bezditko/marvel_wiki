@@ -1,10 +1,12 @@
-import { Component } from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import RandomCard from "./Random-card";
 import Cards from "./Cards";
 import Banner from "./Banner";
 import ErrorBoundary from "./ErrorBoundary";
+import { useState } from "react";
+import Ads from "./Ads";
+import ComicsList from "./ComicsList";
 
 const Wrapper = styled.div`
 	width: 100%;
@@ -14,11 +16,18 @@ const Wrapper = styled.div`
 		margin: 0 auto;
 		padding-left: 10px;
 		padding-right: 10px;
-		.main_part {
+		.characters {
 			margin-top: 53px;
 			display: flex;
 			justify-content: space-between;
 		}
+		.comics {
+			display: grid;
+			place-items: center;
+		}
+		/* img {
+			width: 100%;
+		} */
 	}
 	.vision {
 		position: fixed;
@@ -28,34 +37,35 @@ const Wrapper = styled.div`
 `;
 
 
-export default class App extends Component {
-	state = {
-		id: null
+export default function App() {
+	const [id, setId] = useState(null);
+
+	const changeId = value => {
+		setId(value)
 	}
 
-	changeId = (value) => {
-		this.setState(() => ({
-			id: value
-		}))
-	}
-
-	render() {
-		return (
-			<Wrapper>
-				<div className="container">
-					<Header />
+	return (
+		<Wrapper>
+			<div className="container">
+				<Header />
+				<ErrorBoundary>
+					<RandomCard />
+				</ErrorBoundary>
+				<div className="characters">
 					<ErrorBoundary>
-						<RandomCard />
+						<Cards changeId={changeId}/>
 					</ErrorBoundary>
-					<div className="main_part">
-						<ErrorBoundary>
-							<Cards changeId={this.changeId}/>
-						</ErrorBoundary>
-						<Banner charId={this.state.id}/>
-					</div>
+					<Banner charId={id}/>
 				</div>
-				<br /><br /><br /><br /><br />
-			</Wrapper>
-		)
-	}
+				{/* <div className="comics">
+					<Ads/>
+					<ComicsList/>
+				</div> */}
+			</div>
+			<br /><br /><br /><br /><br />
+		</Wrapper>
+	)
 }
+
+
+// Banner and Cards

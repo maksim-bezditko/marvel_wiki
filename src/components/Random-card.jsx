@@ -1,10 +1,10 @@
-import { Component } from "react";
 import styled from "styled-components";
 import shield from "../img/mjolnir.png";
 import Error from "./Error";
 import Spinner from "./Spinner"
+import { useEffect, useState, useMemo } from "react";
 
-import marvelService from "../services/marvelService";
+import useMarvelService from "../services/marvelService";
 
 const RandomCardWrapper = styled.div`
 	display: flex;
@@ -151,81 +151,51 @@ const RandomCardWrapper = styled.div`
 	}
 `;
 
-export default class RandomCard extends Component {
-	componentDidMount() {
-		this.updateChar()
-	}
+export default function RandomCard() {
 	
-	instance = new marvelService()
+	const {error, loading, getCharacter, clearError} = useMarvelService();
 
-	state = {
-		char: null,
-		loading: true,
-		error: false
-	}
+	const [char, setChar] = useState([]);
+	// const [loading, setLoading] = useState(true);
+	// const [error, setError] = useState(false);
 
-	onLoad = () => {
-		this.setState(() => ({
-			loading: false,
-			error: false
-		}))
-	}
-
-	onError = () => {
-		this.setState(() => ({
-			char: null,
-			loading: false,
-			error: true
-		}))
-	}
-
-	updateChar = () => {
-		this.setState({
-			loading: true,
-			error: false
-		})
-		this.instance.getCharacter()
+	const updateChar = () => {
+		clearError()
+		getCharacter()
 			.then(res => {
-				this.setState({
-					char: {
+				setChar({
 						name: res.name,
 						description: res.description,
 						thumbnail: res.thumbnail,
 						homepage: res.homepage,
 						wiki: res.wiki
-					}
-				})
+					})
 			})
-			.then(this.onLoad)
-			.catch(this.onError)
 
 	}
 
-	render() {
+	useEffect(updateChar, [])
 
-		const { loading, error, char } = this.state;
+	const _loading = loading ? <Spinner/> : null;
+	const _error = error ? <Error/> : null;
+	const _view = !(_loading || _error) ? <View char={char}/> : null;
 
-		const _loading = loading ? <Spinner/> : null;
-		const _error = error ? <Error/> : null;
-		const _view = !(_loading || _error) ? <View char={char}/> : null;
-
-		return (
-			<RandomCardWrapper>
-				<div className="card">
-					{_loading}
-					{_error}
-					{_view}
-				</div>
-				<div className="banner">
-					<h2>Random character for today!</h2> 
-					<h2 className="margin">Do you want to get to know him better?</h2>
-					<h2>Or choose another one</h2>
-					<button onClick={this.updateChar}>Try it</button>
-					<img className="shield" src={shield} alt="shield"/>
-				</div>
-			</RandomCardWrapper>
-		)
-	}
+	return (
+		<RandomCardWrapper>
+			<div className="card">
+				{_loading}
+				{_error}
+				{_view}
+			</div>
+			<div className="banner">
+				<h2>Random character for today!</h2> 
+				<h2 className="margin">Do you want to get to know him better?</h2>
+				<h2>Or choose another one</h2>
+				<button onClick={updateChar}>Try it</button>
+				<img className="shield" src={shield} alt="shield"/>
+			</div>
+		</RandomCardWrapper>
+	)
 }
 
 const View = (props) => {

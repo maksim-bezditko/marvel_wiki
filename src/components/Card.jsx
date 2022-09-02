@@ -1,4 +1,3 @@
-import { Component } from "react";
 import styled from "styled-components";
 
 const CardWrapper = styled.div`
@@ -33,17 +32,15 @@ const CardWrapper = styled.div`
 	}
 `;
 
-export default class Card extends Component {
-	render() {
-		return (
-			<CardWrapper ref={this.props.setRef} onClick={this.props.onClick} active={this.props.active ? "0px 5px 20px #9F0013" : "none"}>
-				<div className="card">
-					<img src={this.props.thumbnail} alt="" />
-					<div className="name">
-						{this.props.name}
-					</div>
+export default function Card(props) {
+	return (
+		<CardWrapper ref={props.updateRefs} onClick={props.onClick} active={props.active ? "0px 5px 20px #9F0013" : "none"}>
+			<div className="card">
+				<img src={props.thumbnail} alt="" />
+				<div className="name">
+					{props.name}
 				</div>
-			</CardWrapper>
-		)
-	}
+			</div>
+		</CardWrapper>
+	)
 }
