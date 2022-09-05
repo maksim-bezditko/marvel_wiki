@@ -1,10 +1,37 @@
 import styled from "styled-components";
-
+import { useState } from "react";
 import Header from "./Header";
 import MainPage from "./pages/MainPage";
 import Comics from "./pages/Comics";
+import Comic from "./Comic";
+import { LoadingMoreSpinner } from "./LoadingMoreSpinner";
 
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
+
+export default function App() {
+
+	const [loading, setLoading] = useState(false)
+
+	const _loading = loading ? <LoadingMoreSpinner/> : null;
+
+	return (
+		<Router>
+			<Wrapper> 
+				{_loading}
+				<div className="container">
+					<Header />
+					<Routes>
+						<Route path="/comics" element={<Comics setSpinner={setLoading}/>}/>
+						<Route path="/comics/:comicId" element={<Comic/>}/>
+						<Route path="/" element={<MainPage setSpinner={setLoading}/>}/>
+					</Routes>
+				</div>
+				<br /><br /><br /><br /><br />
+			</Wrapper>
+		</Router>
+	)
+}
+
 
 const Wrapper = styled.div`
 	width: 100%;
@@ -23,9 +50,6 @@ const Wrapper = styled.div`
 			display: grid;
 			place-items: center;
 		}
-		/* img {
-			width: 100%;
-		} */
 	}
 	.vision {
 		position: fixed;
@@ -33,29 +57,3 @@ const Wrapper = styled.div`
 		right: 0;
 	}
 `;
-
-
-export default function App() {
-
-	return (
-		<Router>
-			<Wrapper>
-				<div className="container">
-					<Header />
-					<Switch>
-						<Route exact path="/comics">
-							<Comics/>
-						</Route>
-						<Route exact path="/">
-							<MainPage/>
-						</Route>
-					</Switch>
-				</div>
-				<br /><br /><br /><br /><br />
-			</Wrapper>
-		</Router>
-	)
-}
-
-
-// Banner and Cards

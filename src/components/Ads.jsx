@@ -12,6 +12,7 @@ const Banner = styled.div`
 	justify-content: space-between;
 	flex-direction: row;
 	width: 100%;
+	margin-bottom: 50px;
 	h2 {
 		color: white;
 		flex-grow: 1;

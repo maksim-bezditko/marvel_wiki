@@ -18,7 +18,7 @@ const MainPage = (props) => {
 			</ErrorBoundary>
 			<div className="characters">
 				<ErrorBoundary>
-					<Cards changeId={changeId}/>
+					<Cards setSpinner={props.setSpinner} changeId={changeId}/>
 				</ErrorBoundary>
 				<Banner charId={id}/>
 			</div>	

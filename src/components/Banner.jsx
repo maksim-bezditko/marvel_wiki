@@ -1,14 +1,14 @@
-import { useMemo, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
-import marvelServices from "../services/marvelService";
 import Spinner from "./Spinner";
 import Skeleton from "./Skeleton";
 import Error from "./Error";
 import useMarvelService from "../services/marvelService";
+import { useNavigate } from 'react-router-dom';
 
 export default function Banner(props) {
 
-	const {error, loading, getCharacterById, getCharacters, clearError} = useMarvelService();
+	const {error, loading, getCharacterById} = useMarvelService();
 	const [char, setChar] = useState(null);
 
 	const updateCharInfo = () => {
@@ -49,7 +49,7 @@ export default function Banner(props) {
 
 const View = (props) => {
 	const {thumbnail, name, comics, homepage, wiki, description} = props.char;
-
+	const navigate = useNavigate();
 
 	return (
 		<>
@@ -72,9 +72,9 @@ const View = (props) => {
 				</div>
 				<div className="items">
 					{comics.length ? null : "No comics about the character"}
-					{comics.map((name, index) => {
+					{comics.map((item, index) => {
 						return (
-							<div key={index} className="item">{name}</div>
+							<div onClick={() => navigate(`/comics/${item.id}`)} key={index} className="item">{item.name}</div>
 						)
 					})}
 				</div>
@@ -208,6 +208,7 @@ const BannerWrapper = styled.div`
 				&:not(:last-child) {
 					margin-bottom: 10px;
 				}
+				cursor: pointer;
 			}
 		}
 	}

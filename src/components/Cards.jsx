@@ -22,6 +22,7 @@ export default function Cards(props) {
 	}
 
 	useEffect(() => {
+		console.log("u")
 		getCharacters(offset)
 			.then((res) => {
 				setData([...res])
@@ -32,24 +33,28 @@ export default function Cards(props) {
 	}, [])
 
 	useEffect(() => {
-		
-		document.addEventListener("scroll", bottom)
+		const timer = setTimeout(() => document.addEventListener("scroll", bottom), 100)
+		// document.addEventListener("scroll", bottom)
 
 		return () => {
+			clearTimeout(timer)
 			document.removeEventListener("scroll", bottom)
 		}
 	})
 
 	const loadMore = () => {
+		console.log("s")
 		
 		try {
+			props.setSpinner(true)
 			getCharacters(offset, false)
 				.then((res) => {
 					setData(prev => [...prev, ...res])
 					setOffset(prev => (prev + 9))
 				})
-				// .then(onLoad)
+				.then(() => props.setSpinner(false))
 				.catch(onError)
+
 		}
 		catch(error) {
 			throw new Error("Couldn't load from the server!")

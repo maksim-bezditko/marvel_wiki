@@ -3,9 +3,9 @@ import styled from "styled-components";
 import useMarvelService from "../services/marvelService";
 import Error from "./Error";
 import Spinner from "./Spinner";
+import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
-	margin-top: 45px;
 	.spinner {
 		position: absolute;
 		height: 40px;
@@ -17,8 +17,9 @@ const Wrapper = styled.div`
 		column-gap: 66px;
 		row-gap: 55px;
 		flex-wrap: wrap;
-		li {
+		a {
 			max-width: 225px;
+			transition: all 0.2s linear 0.1s;
 			img {
 				margin-bottom: 10px;
 				width: 225px;
@@ -39,29 +40,33 @@ const Wrapper = styled.div`
 				line-height: 16px;
 				color: rgba(0, 0, 0, 0.6);
 			}
+			&:hover {
+				transform: scale(1.05);
+			}
 		}
 	}
 `;
 
-const ComicsList = () => {
+const ComicsList = (props) => {
 	const [comicsList, setComicsList] = useState([]);
-	const [offset, setOffset] = useState(0);
+	const [offset, setOffset] = useState(16);
 	const {getComics, loading, error} = useMarvelService();
 
 	useEffect(() => {
-		getComics(0)
+		getComics(offset)
 			.then(comics => {
 				setComicsList(comics)
 				setOffset(prev => prev + 8)
 			})
 		return () => {setComicsList([])}	
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	useEffect(() => {
-		
-		document.addEventListener("scroll", bottom)
+		const timer = setTimeout(() => document.addEventListener("scroll", bottom), 100)
 
 		return () => {
+			clearTimeout(timer)
 			document.removeEventListener("scroll", bottom)
 		}
 	})
@@ -75,12 +80,13 @@ const ComicsList = () => {
 
 	const loadMore = () => {
 		try {
+			props.setSpinner(true)
 			getComics(offset, false)
 				.then((res) => {
 					setComicsList(prev => [...prev, ...res])
 					setOffset(prev => prev + 8)
 				})
-				// .then(onLoad)
+				.then(() => props.setSpinner(false))
 				.catch(onError)
 		}
 		catch(error) {
@@ -99,11 +105,11 @@ const ComicsList = () => {
 				<ul>
 					{comicsList.map((item, index) => {
 						return (
-							<li key={index}>
+							<Link to={`/comics/${item.id}`} key={index}>
 								<img src={item.thumbnail} alt="char preview"/>
 								<h4>{item.title}</h4>
 								<h5>{item.price}</h5>
-							</li>
+							</Link>
 						)
 					})}
 				</ul>

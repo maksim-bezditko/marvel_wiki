@@ -2,7 +2,7 @@ import styled from "styled-components";
 import shield from "../img/mjolnir.png";
 import Error from "./Error";
 import Spinner from "./Spinner"
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 
 import useMarvelService from "../services/marvelService";
 
@@ -147,6 +147,8 @@ const RandomCardWrapper = styled.div`
 			right: 0;
 			transform: translateX(30px);
 			z-index: 0;
+			max-height: 300px;
+			max-width: 200px;
 		}
 	}
 `;
