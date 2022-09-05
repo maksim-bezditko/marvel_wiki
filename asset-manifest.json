@@ -1,17 +1,18 @@
 {
   "files": {
     "main.css": "/marvel_wiki/static/css/main.2324ee88.css",
-    "main.js": "/marvel_wiki/static/js/main.bfa52396.js",
+    "main.js": "/marvel_wiki/static/js/main.4e9e8322.js",
     "static/media/mjolnir.png": "/marvel_wiki/static/media/mjolnir.61f31e1809f12183a524.png",
     "static/media/Avengers.png": "/marvel_wiki/static/media/Avengers.4065c8f9c94e3d8b039a.png",
     "static/media/error.gif": "/marvel_wiki/static/media/error.42292aa12b6bc303ce99.gif",
+    "static/media/Spinner-5.gif": "/marvel_wiki/static/media/Spinner-5.e9202c75d969bfbffe5a.gif",
     "static/media/Avengers_logo.png": "/marvel_wiki/static/media/Avengers_logo.9eaf219344d83362e830.png",
     "index.html": "/marvel_wiki/index.html",
     "main.2324ee88.css.map": "/marvel_wiki/static/css/main.2324ee88.css.map",
-    "main.bfa52396.js.map": "/marvel_wiki/static/js/main.bfa52396.js.map"
+    "main.4e9e8322.js.map": "/marvel_wiki/static/js/main.4e9e8322.js.map"
   },
   "entrypoints": [
     "static/css/main.2324ee88.css",
-    "static/js/main.bfa52396.js"
+    "static/js/main.4e9e8322.js"
   ]
 }
