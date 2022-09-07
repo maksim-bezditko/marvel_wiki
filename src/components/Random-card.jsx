@@ -178,6 +178,15 @@ export default function RandomCard() {
 
 	useEffect(updateChar, [])
 
+	// useEffect(() => {
+	// 	console.log("created");
+	// 	const intervalId = setInterval(updateChar, 10000);
+	// 	return () => { 
+	// 		clearInterval(intervalId) 
+	// 		console.log("cleared");
+	// 	}
+	// })
+
 	const _loading = loading ? <Spinner/> : null;
 	const _error = error ? <Error/> : null;
 	const _view = !(_loading || _error) ? <View char={char}/> : null;

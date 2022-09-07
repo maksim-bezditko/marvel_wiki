@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback} from "react";
 
 import Card from "./Card";
 import Error from "./Error";
@@ -22,7 +22,6 @@ export default function Cards(props) {
 	}
 
 	useEffect(() => {
-		console.log("u")
 		getCharacters(offset)
 			.then((res) => {
 				setData([...res])
@@ -43,8 +42,6 @@ export default function Cards(props) {
 	})
 
 	const loadMore = () => {
-		console.log("s")
-		
 		try {
 			props.setSpinner(true)
 			getCharacters(offset, false)
@@ -68,9 +65,9 @@ export default function Cards(props) {
 		}
 	}
 
-	const onClick = (item) => {
+	const onClick = useCallback((item) => {
 		props.changeId(item.id)
-	}
+	}, [])
 
 	const itemRefs = useRef([]); 
 
@@ -81,7 +78,7 @@ export default function Cards(props) {
 		itemRefs.current[index].classList.add('active1')
 	}
 
-	const renderItems = () => {
+	const renderItems = useCallback(() => {
 		const cards = data.map((item, index) => {
 			return (
 				<Card 
@@ -107,7 +104,7 @@ export default function Cards(props) {
 				</AllCards>
 			</Wrapper>
 		)
-	}
+	}, [data]) 
 
 	const _error = useMemo(() => error ? <Error/> : null, [error]);
 	const _loading = useMemo(() => loading ? <Spinner/> : null, [loading]);

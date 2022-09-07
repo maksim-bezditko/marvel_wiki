@@ -9,9 +9,9 @@ const CardWrapper = styled.div`
 		display: flex;
 		flex-direction: column;
 		transition: all 0.2s;
-		box-shadow: ${(props) => props.active};
+		box-shadow: ${(props) => props.active ? "0px 5px 20px #9F0013" : "none"};
 		&:hover {
-			box-shadow: 0px 5px 20px #9F0013;
+			box-shadow: ${(props) => props.active ? "none" : "0px 5px 20px #9F0013"};
 			cursor: pointer;
 		}
 	}
@@ -34,7 +34,7 @@ const CardWrapper = styled.div`
 
 export default function Card(props) {
 	return (
-		<CardWrapper ref={props.updateRefs} onClick={props.onClick} active={props.active ? "0px 5px 20px #9F0013" : "none"}>
+		<CardWrapper ref={props.updateRefs} onClick={props.onClick} active={props.active}>
 			<div className="card">
 				<img src={props.thumbnail} alt="" />
 				<div className="name">

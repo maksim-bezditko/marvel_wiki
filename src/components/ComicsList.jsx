@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo} from "react";
+import { useState, useEffect, useMemo, useCallback} from "react";
 import styled from "styled-components";
 import useMarvelService from "../services/marvelService";
 import Error from "./Error";
@@ -58,7 +58,10 @@ const ComicsList = (props) => {
 				setComicsList(comics)
 				setOffset(prev => prev + 8)
 			})
-		return () => {setComicsList([])}	
+		return () => {
+			setComicsList([])
+			props.setSpinner(false)
+		}	
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
@@ -99,7 +102,7 @@ const ComicsList = (props) => {
 		setOffset(null);
 	}
 
-	const renderItems = () => {
+	const renderItems = useCallback(() => {
 		return (
 			<Wrapper>
 				<ul>
@@ -115,10 +118,11 @@ const ComicsList = (props) => {
 				</ul>
 			</Wrapper>
 		)
-	}
+	}, [comicsList])
+
 	const _error = useMemo(() => error ? <Error/> : null, [error]);
 	const _loading = useMemo(() => loading ? <Spinner/> : null, [loading]);
-	const _contents = useMemo(() => !(error || loading) || !loading ? renderItems() : null, [comicsList]);
+	const _contents = useMemo(() => !(error || loading) || !loading ? renderItems() : null, [error, loading, renderItems]);
 
 	return (
 		<>

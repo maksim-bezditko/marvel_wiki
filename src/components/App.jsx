@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import Header from "./Header";
-import MainPage from "./pages/MainPage";
-import Comics from "./pages/Comics";
-import Comic from "./Comic";
-import { LoadingMoreSpinner } from "./LoadingMoreSpinner";
+import LoadingMoreSpinner from "./LoadingMoreSpinner";
+import { HashRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 
-import { HashRouter as Router, Route, Routes } from "react-router-dom";
+const MainPage = lazy(() => import("./pages/MainPage"))
+const Comics = lazy(() => import("./pages/Comics"))
+const Comic = lazy(() => import("./Comic"))
 
 export default function App() {
 
@@ -15,20 +15,24 @@ export default function App() {
 	const _loading = loading ? <LoadingMoreSpinner/> : null;
 
 	return (
-		<Router>
-			<Wrapper> 
-				{_loading}
-				<div className="container">
-					<Header />
-					<Routes>
-						<Route path="/comics" element={<Comics setSpinner={setLoading}/>}/>
-						<Route path="/comics/:comicId" element={<Comic/>}/>
-						<Route path="/" element={<MainPage setSpinner={setLoading}/>}/>
-					</Routes>
-				</div>
-				<br /><br /><br /><br /><br />
-			</Wrapper>
-		</Router>
+		<Suspense fallback="">
+			<Router>
+				<Wrapper> 
+					{_loading}
+					<div className="container">
+						<Header />
+						<Routes>
+							<Route path="/comics" element={<Comics setSpinner={setLoading}/>}/>
+							<Route path="/comics/:comicId" element={<Comic/>}/>
+							<Route path="/" element={<MainPage setSpinner={setLoading}/>}/>
+							<Route path="*" element={<Navigate replace to="/"/>}/>
+						</Routes>
+					</div>
+					<br /><br /><br /><br /><br />
+				</Wrapper>
+			</Router>
+		</Suspense>	
+		
 	)
 }
 

@@ -2,14 +2,14 @@ import ErrorBoundary from "../ErrorBoundary"
 import RandomCard from "../Random-card"
 import Cards from "../Cards"
 import Banner from "../Banner"
-import { useState } from "react"
+import { useState, useCallback } from "react"
 
 const MainPage = (props) => {
 	const [id, setId] = useState(null);
 
-	const changeId = value => {
+	const changeId = useCallback(value => {
 		setId(value)
-	}
+	}, [])
 
 	return (
 		<>
