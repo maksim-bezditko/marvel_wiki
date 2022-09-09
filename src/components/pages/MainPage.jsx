@@ -4,7 +4,11 @@ import Cards from "../Cards"
 import Banner from "../Banner"
 import { useState, useCallback } from "react"
 
-const MainPage = (props) => {
+import { idContext } from "../../context/сontext";
+
+const {Provider} = idContext;
+
+const MainPage = () => {
 	const [id, setId] = useState(null);
 
 	const changeId = useCallback(value => {
@@ -17,10 +21,12 @@ const MainPage = (props) => {
 				<RandomCard />
 			</ErrorBoundary>
 			<div className="characters">
-				<ErrorBoundary>
-					<Cards setSpinner={props.setSpinner} changeId={changeId}/>
-				</ErrorBoundary>
-				<Banner charId={id}/>
+				<Provider value={{changeId, charId: id}}>
+					<ErrorBoundary>
+						<Cards/>
+					</ErrorBoundary>
+					<Banner/>
+				</Provider>
 			</div>	
 		</>
 	)	

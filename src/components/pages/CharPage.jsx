@@ -1,40 +1,35 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useState, useMemo } from "react";
-import { useEffect } from "react";
-import useMarvelService from "../services/marvelService";
+import { useParams, useNavigate } from "react-router-dom";
+import { useMemo, useState, useEffect } from "react";
+import useMarvelService from "../../services/marvelService";
+import Ads from "../Ads";
 import styled from "styled-components";
-import Error from "./Error";
-import Spinner from "./Spinner";
-import Ads from "./Ads";
+import Error from "../Error";
+import Spinner from "../Spinner";
 
-function Comic() {
-  const { comicId } = useParams();
-  const [comic, setComic] = useState([]);
-  const { error, loading, getComicById } = useMarvelService();
+export function CharPage() {
+	const { charId } = useParams();
+	const [char, setChar] = useState({
+		thumbnail: ""
+	});
+  const { error, loading, getCharacterById } = useMarvelService();
   const navigate = useNavigate();
 
   useEffect(() => {
-    getComicById(comicId).then((res) => setComic(res[0]));
-  }, [comicId]);
-
-  const clearString = (str) => {
-    return str.replace(/<\/?[^>]+(>|$)/g, "");
-  };
+    getCharacterById(charId)
+	 	.then(res => setChar(res));
+  }, [charId]);
 
   const renderItems = () => {
     return (
       <Wrapper>
         <div className="image">
-          <img src={comic.thumbnail} alt={comic.title} />
+          <img src={char.thumbnail} alt={char.name} />
         </div>
         <div className="info">
-          <h2>{comic.title}</h2>
+          <h2>{char.name}</h2>
           <p className="description">
-            {comic.description ? clearString(comic.description) : ""}
+            {char.description ? (char.description) : <span>Unfortunately, no additional information provided<span role="img" aria-label="sheep">😑</span></span>}
           </p>
-          <p className="pageCount">{comic.pageCount}</p>
-          <p className="language">{comic.language}</p>
-          <h3>{comic.price}</h3>
         </div>
 		  <div className="back"> 
 			<div onClick={() => navigate(-1)}>Back to all</div>
@@ -45,10 +40,7 @@ function Comic() {
 
   const _error = useMemo(() => (error ? <AdditionalWrapper><Error /></AdditionalWrapper>  : null), [error]);
   const _loading = useMemo(() => (loading ? <AdditionalWrapper><Spinner /></AdditionalWrapper> : null), [loading]);
-  const _contents = useMemo(
-    () => (!(error || loading) ? renderItems() : null),
-    [comic]
-  );
+  const _contents = !(error || loading) ? renderItems() : null;
   return (
     <>
 		<Ads/>
@@ -116,5 +108,3 @@ const AdditionalWrapper = styled.div`
 	display: grid;
 	place-items: center;
 `;
-
-export default Comic;

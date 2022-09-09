@@ -3,6 +3,7 @@ import shield from "../img/mjolnir.png";
 import Error from "./Error";
 import Spinner from "./Spinner"
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import useMarvelService from "../services/marvelService";
 
@@ -81,9 +82,6 @@ const RandomCardWrapper = styled.div`
 					&:hover {
 						transform: translateY(-4px);
 						cursor: pointer;
-					}
-					@media (max-width: 1089px) {
-						width: 100%;
 					}
 				}
 			}
@@ -170,22 +168,14 @@ export default function RandomCard() {
 						description: res.description,
 						thumbnail: res.thumbnail,
 						homepage: res.homepage,
-						wiki: res.wiki
+						wiki: res.wiki,
+						id: res.id
 					})
 			})
 
 	}
 
 	useEffect(updateChar, [])
-
-	// useEffect(() => {
-	// 	console.log("created");
-	// 	const intervalId = setInterval(updateChar, 10000);
-	// 	return () => { 
-	// 		clearInterval(intervalId) 
-	// 		console.log("cleared");
-	// 	}
-	// })
 
 	const _loading = loading ? <Spinner/> : null;
 	const _error = error ? <Error/> : null;
@@ -210,7 +200,7 @@ export default function RandomCard() {
 }
 
 const View = (props) => {
-	const {thumbnail, name, description, homepage, wiki} = props.char;
+	const {thumbnail, name, description, id} = props.char;
 
 	return (
 		<>
@@ -219,8 +209,11 @@ const View = (props) => {
 				<h2>{name}</h2>
 				<p>{description}</p>
 				<div className="buttons">
-					<a href={homepage}>Homepage</a>
-					<a href={wiki}>Wiki</a>
+					<Link to={`/${id}`} className="homepage">Homepage</Link>
+					<a target={"_blank"} 
+					   rel={"noreferrer"} 
+						href={ name ? `https://www.google.com/search?q=${ name.toLowerCase().split(" ").join("+")}` : "" } 
+						className="wiki">Search</a>
 				</div>
 			</div>
 		</>

@@ -34,7 +34,7 @@ export default function Header() {
         </Link>
       </div>
       <div className="options">
-        <NavLink end to="/" style={({isActive}) => ({color: isActive ? "#9F0013" : "black"})}>
+        <NavLink to="/" style={({isActive}) => ({color: isActive ? "#9F0013" : "black"})}>
           Characters
         </NavLink>
 		  {" "}/{" "}

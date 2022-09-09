@@ -1,22 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import Spinner from "./Spinner";
 import Skeleton from "./Skeleton";
 import Error from "./Error";
 import useMarvelService from "../services/marvelService";
 import { useNavigate } from 'react-router-dom';
+import { idContext } from "../context/сontext";
+import CharSearch from "./CharSearch";
+import { Link } from 'react-router-dom';
 
-export default function Banner(props) {
+export default function Banner() {
 
 	const {error, loading, getCharacterById} = useMarvelService();
 	const [char, setChar] = useState(null);
 
+	const {charId} = useContext(idContext);
+
 	const updateCharInfo = () => {
-		if (!props.charId) {
+		if (!charId) {
 			return;
 		}
 		setChar(null);
-		getCharacterById(props.charId)
+		getCharacterById(charId)
 			.then((res) => setChar({
 					name: res.name,
 					id: res.id,
@@ -29,7 +34,7 @@ export default function Banner(props) {
 			.catch(() => setChar(null))
 	}
 
-	useEffect(() => updateCharInfo(), [props.charId])
+	useEffect(() => updateCharInfo(), [charId])
 
 	const skeleton = char || loading || error ? null : <Skeleton/>;
 	const _error = error ? <Error height={400}/> : null;
@@ -38,17 +43,20 @@ export default function Banner(props) {
 
 
 	return (
-		<BannerWrapper maxHeight={document.documentElement.clientHeight - 60}>
-			{_error}
-			{_loading}
-			{skeleton}
-			{view}
-		</BannerWrapper>
+		<Container>
+			<BannerWrapper maxHeight={document.documentElement.clientHeight - 400}>
+				{_error}
+				{_loading}
+				{skeleton}
+				{view}
+			</BannerWrapper>
+			<CharSearch/>			
+		</Container>
 	)
 }
 
 const View = (props) => {
-	const {thumbnail, name, comics, homepage, wiki, description} = props.char;
+	const {thumbnail, name, comics, description, id} = props.char;
 	const navigate = useNavigate();
 
 	return (
@@ -58,8 +66,8 @@ const View = (props) => {
 				<div className="name_and_links">
 					<h2>{name}</h2>
 					<div className="buttons">
-						<a href={homepage} className="homepage">Homepage</a>
-						<a href={wiki} className="wiki">Wiki</a>
+						<Link to={`/${id}`} className="homepage">Homepage</Link>
+						<a target={"_blank"} rel={"noreferrer"} href={`https://www.google.com/search?q=${name.toLowerCase().split(" ").join("+")}`} className="wiki">Search</a>
 					</div>
 				</div>
 			</div>
@@ -86,7 +94,7 @@ const View = (props) => {
 const BannerWrapper = styled.div`
 	/* width */
 	::-webkit-scrollbar {
-		width: 2px;
+		width: 3px;
 	}
 
 	/* Track */
@@ -96,7 +104,7 @@ const BannerWrapper = styled.div`
 
 	/* Handle */
 	::-webkit-scrollbar-thumb {
-		background: #7a7a7a;
+		background: #7a7a7aa1;
 	}
 
 	/* Handle on hover */
@@ -111,10 +119,6 @@ const BannerWrapper = styled.div`
 	overflow-y: scroll;
 	padding: 25px;
 	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
-	/* position: relative; */
-	position: -webkit-sticky;
-  	position: sticky;
-  	top: 10px;
 	img {
 		display: block;
 	}
@@ -212,5 +216,13 @@ const BannerWrapper = styled.div`
 			}
 		}
 	}
+`;
+
+const Container = styled.div`
+	display: flex;
+	flex-direction: column;
+	position: sticky;
+	top: 10px;
+	align-self: flex-start;
 `;
  

@@ -3,10 +3,14 @@ import { useState, lazy, Suspense } from "react";
 import Header from "./Header";
 import LoadingMoreSpinner from "./LoadingMoreSpinner";
 import { HashRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import { spinnerContext } from "../context/сontext";
+import { CharPage } from "./pages/CharPage";
 
 const MainPage = lazy(() => import("./pages/MainPage"))
 const Comics = lazy(() => import("./pages/Comics"))
-const Comic = lazy(() => import("./Comic"))
+const Comic = lazy(() => import("./pages/Comic"))
+
+const {Provider} = spinnerContext;
 
 export default function App() {
 
@@ -15,23 +19,26 @@ export default function App() {
 	const _loading = loading ? <LoadingMoreSpinner/> : null;
 
 	return (
-		<Suspense fallback="">
-			<Router>
-				<Wrapper> 
-					{_loading}
-					<div className="container">
-						<Header />
-						<Routes>
-							<Route path="/comics" element={<Comics setSpinner={setLoading}/>}/>
-							<Route path="/comics/:comicId" element={<Comic/>}/>
-							<Route path="/" element={<MainPage setSpinner={setLoading}/>}/>
-							<Route path="*" element={<Navigate replace to="/"/>}/>
-						</Routes>
-					</div>
-					<br /><br /><br /><br /><br />
-				</Wrapper>
-			</Router>
-		</Suspense>	
+		<Provider value={setLoading}>
+			<Suspense fallback="">
+				<Router>
+					<Wrapper> 
+						{_loading}
+						<div className="container">
+							<Header />
+							<Routes>
+								<Route path="/comics" element={<Comics/>}/>
+								<Route path="/comics/:comicId" element={<Comic/>}/>
+								<Route path="/:charId" element={<CharPage/>}/>
+								<Route path="/" element={<MainPage/>}/>
+								<Route path="*" element={<Navigate replace to="/"/>}/>
+							</Routes>
+						</div>
+						<br /><br /><br /><br /><br />
+					</Wrapper>
+				</Router>
+			</Suspense>	
+		</Provider>
 		
 	)
 }
@@ -41,10 +48,13 @@ const Wrapper = styled.div`
 	width: 100%;
 	height: 100%;
 	.container {
+		display: flex;
+		flex-direction: column;
 		max-width: 1120px;
 		margin: 0 auto;
 		padding-left: 10px;
 		padding-right: 10px;
+		flex: 1 1 auto;
 		.characters {
 			margin-top: 53px;
 			display: flex;

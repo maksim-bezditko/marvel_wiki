@@ -1,11 +1,11 @@
 import Ads from "../Ads";
 import ComicsList from "../ComicsList";
 
-const Comics = (props) => {
+const Comics = () => {
 	return (
 		<div className="comics">
 			<Ads/>
-			<ComicsList setSpinner={props.setSpinner}/>
+			<ComicsList/>
 		</div>
 	)
 }

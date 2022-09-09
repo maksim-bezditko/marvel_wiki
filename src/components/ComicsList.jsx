@@ -1,9 +1,10 @@
-import { useState, useEffect, useMemo, useCallback} from "react";
+import { useState, useEffect, useMemo, useCallback, useContext} from "react";
 import styled from "styled-components";
 import useMarvelService from "../services/marvelService";
 import Error from "./Error";
 import Spinner from "./Spinner";
 import { Link } from 'react-router-dom';
+import { spinnerContext } from "../context/сontext";
 
 const Wrapper = styled.div`
 	.spinner {
@@ -47,10 +48,12 @@ const Wrapper = styled.div`
 	}
 `;
 
-const ComicsList = (props) => {
+const ComicsList = () => {
 	const [comicsList, setComicsList] = useState([]);
 	const [offset, setOffset] = useState(16);
 	const {getComics, loading, error} = useMarvelService();
+
+	const setSpinner = useContext(spinnerContext);
 
 	useEffect(() => {
 		getComics(offset)
@@ -60,7 +63,7 @@ const ComicsList = (props) => {
 			})
 		return () => {
 			setComicsList([])
-			props.setSpinner(false)
+			setSpinner(false)
 		}	
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
@@ -83,13 +86,13 @@ const ComicsList = (props) => {
 
 	const loadMore = () => {
 		try {
-			props.setSpinner(true)
+			setSpinner(true)
 			getComics(offset, false)
 				.then((res) => {
 					setComicsList(prev => [...prev, ...res])
 					setOffset(prev => prev + 8)
 				})
-				.then(() => props.setSpinner(false))
+				.then(() => setSpinner(false))
 				.catch(onError)
 		}
 		catch(error) {

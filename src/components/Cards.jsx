@@ -1,4 +1,10 @@
-import { useState, useEffect, useRef, useMemo, useCallback} from "react";
+import { useState, 
+	      useEffect, 
+			useRef, 
+			useMemo, 
+			useCallback, 
+			useContext
+		} from "react";
 
 import Card from "./Card";
 import Error from "./Error";
@@ -9,12 +15,19 @@ import styled from "styled-components";
 
 import "./test.css";
 
-export default function Cards(props) {
+import { spinnerContext, 
+	      idContext 
+		} from "../context/сontext";
+
+export default function Cards() {
 	
 	const {error, loading, getCharacters} = useMarvelService();
 
 	const [data, setData] = useState([]);
 	const [offset, setOffset] = useState(210);
+
+	const setSpinner = useContext(spinnerContext);
+	const {changeId} = useContext(idContext);
 
 	const onError = () => {
 		setData([]);
@@ -43,13 +56,13 @@ export default function Cards(props) {
 
 	const loadMore = () => {
 		try {
-			props.setSpinner(true)
+			setSpinner(true)
 			getCharacters(offset, false)
 				.then((res) => {
 					setData(prev => [...prev, ...res])
 					setOffset(prev => (prev + 9))
 				})
-				.then(() => props.setSpinner(false))
+				.then(() => setSpinner(false))
 				.catch(onError)
 
 		}
@@ -66,7 +79,7 @@ export default function Cards(props) {
 	}
 
 	const onClick = useCallback((item) => {
-		props.changeId(item.id)
+		changeId(item.id)
 	}, [])
 
 	const itemRefs = useRef([]); 
