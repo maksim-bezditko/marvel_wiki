@@ -1,11 +1,11 @@
 {
   "files": {
     "main.css": "/marvel_wiki/static/css/main.a270c9fd.css",
-    "main.js": "/marvel_wiki/static/js/main.57b53562.js",
+    "main.js": "/marvel_wiki/static/js/main.16893bdc.js",
     "static/css/106.588849f7.chunk.css": "/marvel_wiki/static/css/106.588849f7.chunk.css",
     "static/js/106.0ce4bcba.chunk.js": "/marvel_wiki/static/js/106.0ce4bcba.chunk.js",
     "static/js/810.907e73b0.chunk.js": "/marvel_wiki/static/js/810.907e73b0.chunk.js",
-    "static/js/12.ab57cade.chunk.js": "/marvel_wiki/static/js/12.ab57cade.chunk.js",
+    "static/js/12.af913aaf.chunk.js": "/marvel_wiki/static/js/12.af913aaf.chunk.js",
     "static/media/mjolnir.png": "/marvel_wiki/static/media/mjolnir.61f31e1809f12183a524.png",
     "static/media/Avengers.png": "/marvel_wiki/static/media/Avengers.4065c8f9c94e3d8b039a.png",
     "static/media/error.gif": "/marvel_wiki/static/media/error.42292aa12b6bc303ce99.gif",
@@ -13,14 +13,14 @@
     "static/media/Avengers_logo.png": "/marvel_wiki/static/media/Avengers_logo.9eaf219344d83362e830.png",
     "index.html": "/marvel_wiki/index.html",
     "main.a270c9fd.css.map": "/marvel_wiki/static/css/main.a270c9fd.css.map",
-    "main.57b53562.js.map": "/marvel_wiki/static/js/main.57b53562.js.map",
+    "main.16893bdc.js.map": "/marvel_wiki/static/js/main.16893bdc.js.map",
     "106.588849f7.chunk.css.map": "/marvel_wiki/static/css/106.588849f7.chunk.css.map",
     "106.0ce4bcba.chunk.js.map": "/marvel_wiki/static/js/106.0ce4bcba.chunk.js.map",
     "810.907e73b0.chunk.js.map": "/marvel_wiki/static/js/810.907e73b0.chunk.js.map",
-    "12.ab57cade.chunk.js.map": "/marvel_wiki/static/js/12.ab57cade.chunk.js.map"
+    "12.af913aaf.chunk.js.map": "/marvel_wiki/static/js/12.af913aaf.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a270c9fd.css",
-    "static/js/main.57b53562.js"
+    "static/js/main.16893bdc.js"
   ]
 }
