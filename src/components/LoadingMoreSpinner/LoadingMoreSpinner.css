@@ -1,0 +1,12 @@
+.loading-more-spinner {
+	position: fixed;
+	top: 5px;
+	right: 10px;
+}
+
+@media (max-width: 1293px) {
+	.loading-more-spinner {
+		top: 0px;
+		right: 0px;
+	}
+}

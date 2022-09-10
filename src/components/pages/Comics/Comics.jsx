@@ -1,5 +1,5 @@
-import Ads from "../Ads";
-import ComicsList from "../ComicsList";
+import Ads from "../../Ads/Ads";
+import ComicsList from "../../ComicsList/ComicsList";
 
 const Comics = () => {
 	return (

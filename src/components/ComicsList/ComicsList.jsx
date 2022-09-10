@@ -1,52 +1,12 @@
 import { useState, useEffect, useMemo, useCallback, useContext} from "react";
 import styled from "styled-components";
-import useMarvelService from "../services/marvelService";
-import Error from "./Error";
-import Spinner from "./Spinner";
+import useMarvelService from "../../services/marvelService";
+import Error from "../Error/Error";
+import Spinner from "../Spinner/Spinner";
 import { Link } from 'react-router-dom';
-import { spinnerContext } from "../context/сontext";
+import { spinnerContext } from "../../context/сontext";
 
-const Wrapper = styled.div`
-	.spinner {
-		position: absolute;
-		height: 40px;
-		width: 40px;
-	}
-	ul {
-		list-style-type: none;
-		display: flex;
-		column-gap: 66px;
-		row-gap: 55px;
-		flex-wrap: wrap;
-		a {
-			max-width: 225px;
-			transition: all 0.2s linear 0.1s;
-			img {
-				margin-bottom: 10px;
-				width: 225px;
-				height: 346px;
-			}
-			h4 {
-				font-family: 'Roboto Condensed';
-				font-weight: 700;
-				font-size: 14px;
-				line-height: 16px;
-				color: #000000;
-				margin-bottom: 5px;
-			}
-			h5 {
-				font-family: 'Roboto Condensed';
-				font-weight: 700;
-				font-size: 14px;
-				line-height: 16px;
-				color: rgba(0, 0, 0, 0.6);
-			}
-			&:hover {
-				transform: scale(1.05);
-			}
-		}
-	}
-`;
+import "./ComicsList.css"
 
 const ComicsList = () => {
 	const [comicsList, setComicsList] = useState([]);
@@ -107,19 +67,19 @@ const ComicsList = () => {
 
 	const renderItems = useCallback(() => {
 		return (
-			<Wrapper>
+			<div className="comics-list-wrapper">
 				<ul>
 					{comicsList.map((item, index) => {
 						return (
-							<Link to={`/comics/${item.id}`} key={index}>
-								<img src={item.thumbnail} alt="char preview"/>
-								<h4>{item.title}</h4>
-								<h5>{item.price}</h5>
+							<Link className="list-item" to={`/comics/${item.id}`} key={index}>
+								<img className="item-avatar" src={item.thumbnail} alt="char preview"/>
+								<h4 className="item-title">{item.title}</h4>
+								<h5 className="item-price">{item.price}</h5>
 							</Link>
 						)
 					})}
 				</ul>
-			</Wrapper>
+			</div>
 		)
 	}, [comicsList])
 
@@ -128,11 +88,11 @@ const ComicsList = () => {
 	const _contents = useMemo(() => !(error || loading) || !loading ? renderItems() : null, [error, loading, renderItems]);
 
 	return (
-		<>
+		<div className="wrapper">
 			{_error}
 			{_contents}
 			{_loading}
-		</>
+		</div>
 	)
 }
 

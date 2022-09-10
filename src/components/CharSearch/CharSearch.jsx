@@ -1,9 +1,9 @@
 import styled from "styled-components"
 import { useState, useCallback, useContext } from "react";
-import useMarvelService from "../services/marvelService";
+import useMarvelService from "../../services/marvelService";
 import { alphabetizeByProperty } from "@writetome51/alphabetize-by-property";
 import { useNavigate } from "react-router-dom";
-import { spinnerContext } from "../context/сontext";
+import { spinnerContext } from "../../context/сontext";
 
 export default function CharSearch() {
 	const [term, setTerm] = useState("");

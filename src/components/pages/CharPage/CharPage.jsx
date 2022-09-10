@@ -1,10 +1,10 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useMemo, useState, useEffect } from "react";
-import useMarvelService from "../../services/marvelService";
-import Ads from "../Ads";
+import useMarvelService from "../../../services/marvelService";
+import Ads from "../../Ads/Ads";
 import styled from "styled-components";
-import Error from "../Error";
-import Spinner from "../Spinner";
+import Error from "../../Error/Error";
+import Spinner from "../../Spinner/Spinner";
 
 export function CharPage() {
 	const { charId } = useParams();

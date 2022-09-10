@@ -6,18 +6,18 @@ import { useState,
 			useContext
 		} from "react";
 
-import Card from "./Card";
-import Error from "./Error";
-import Spinner from "./Spinner";
+import Card from "../Card/Card";
+import Error from "../Error/Error";
+import Spinner from "../Spinner/Spinner";
 
-import useMarvelService from "../services/marvelService"
+import useMarvelService from "../../services/marvelService"
 import styled from "styled-components";
 
-import "./test.css";
+import "./active.css";
 
 import { spinnerContext, 
 	      idContext 
-		} from "../context/сontext";
+		} from "../../context/сontext";
 
 export default function Cards() {
 	

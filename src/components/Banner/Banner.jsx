@@ -1,12 +1,12 @@
 import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
-import Spinner from "./Spinner";
-import Skeleton from "./Skeleton";
-import Error from "./Error";
-import useMarvelService from "../services/marvelService";
+import Spinner from "../Spinner/Spinner";
+import Skeleton from "../Skeleton/Skeleton";
+import Error from "../Error/Error";
+import useMarvelService from "../../services/marvelService";
 import { useNavigate } from 'react-router-dom';
-import { idContext } from "../context/сontext";
-import CharSearch from "./CharSearch";
+import { idContext } from "../../context/сontext";
+import CharSearch from "../CharSearch/CharSearch";
 import { Link } from 'react-router-dom';
 
 export default function Banner() {

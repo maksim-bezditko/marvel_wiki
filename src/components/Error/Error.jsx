@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import errorGif from "../img/error.gif";
+import errorGif from "../../img/error.gif";
 
 const ErrorItem = styled.div`
 	display: flex;

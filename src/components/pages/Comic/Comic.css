@@ -1,0 +1,186 @@
+.comic-wrapper {
+	display: flex;
+	align-items: stretch;
+	justify-content: flex-start;
+	width: 100%;
+}
+
+.image img {
+  width: 293px;
+  min-height: 100%;
+  margin-right: 50px;
+  flex-grow: 0;
+}
+
+.info {
+  font-family: "Roboto Condensed";
+  color: #000000;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  flex-grow: 1;
+  max-width: 650px;
+}
+
+.info h2 {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 26px;
+  margin-bottom: 25px;
+}
+
+.info h3 {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  color: #9f0013;
+}
+
+.description {
+  margin-bottom: 25px;
+}
+
+.language {
+  margin-bottom: 25px;
+}
+
+.pageCount {
+  margin-bottom: 25px;
+}
+
+.back {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  font-family: 'Roboto Condensed';
+  cursor: pointer;
+  margin-top: 50px;
+}
+
+@media (max-width: 1070px) {
+  .image img {
+    width: 293px;
+    min-height: 100%;
+    margin-right: 35px;
+    flex-grow: 0;
+  }
+}
+
+@media (max-width: 670px) {
+  .image img {
+    width: 250px;
+    min-height: 100%;
+    margin-right: 35px;
+    flex-grow: 0;
+  }
+  .info h2 {
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 15px;
+  }
+  
+  .info h3 {
+    font-size: 24px;
+    line-height: 28px;
+  }
+  
+  .description {
+    margin-bottom: 15px;
+  }
+  
+  .language {
+    margin-bottom: 15px;
+  }
+  
+  .pageCount {
+    margin-bottom: 15px;
+  }
+  .info {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .image img {
+    width: 200px;
+    min-height: 100%;
+    margin-right: 25px;
+  }
+  .info h2 {
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 15px;
+  }
+  
+  .info h3 {
+    font-size: 22px;
+    line-height: 28px;
+  }
+  
+  .description {
+    margin-bottom: 10px;
+  }
+  
+  .language {
+    margin-bottom: 10px;
+  }
+  
+  .pageCount {
+    margin-bottom: 10px;
+  }
+  .info {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .image img {
+    width: 200px;
+    min-height: 100%;
+    margin-right: 20px;
+  }
+  .info h2 {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .info h3 {
+    font-size: 22px;
+    line-height: 28px;
+  }
+  
+  .description {
+    margin-bottom: 5px;
+  }
+  
+  .language {
+    margin-bottom: 5px;
+  }
+  
+  .pageCount {
+    margin-bottom: 5px;
+  }
+}
+
+@media (max-width: 482px) {
+  .comic-wrapper {
+    flex-wrap: wrap;
+  }
+  .info h2 {
+    margin-top: 15px;
+  }
+  .language {
+    margin-bottom: 10px;
+  }
+  .image img {
+    width: 250px;
+    min-height: 100%;
+    margin-right: 20px;
+  }
+
+}
+

@@ -1,10 +1,10 @@
-import ErrorBoundary from "../ErrorBoundary"
-import RandomCard from "../Random-card"
-import Cards from "../Cards"
-import Banner from "../Banner"
+import ErrorBoundary from "../../ErrorBoundary/ErrorBoundary"
+import RandomCard from "../../RandomCard/RandomCard"
+import Cards from "../../Cards/Cards"
+import Banner from "../../Banner/Banner"
 import { useState, useCallback } from "react"
-
-import { idContext } from "../../context/сontext";
+import styled from "styled-components"
+import { idContext } from "../../../context/сontext";
 
 const {Provider} = idContext;
 
@@ -20,16 +20,22 @@ const MainPage = () => {
 			<ErrorBoundary>
 				<RandomCard />
 			</ErrorBoundary>
-			<div className="characters">
+			<Characters>
 				<Provider value={{changeId, charId: id}}>
 					<ErrorBoundary>
 						<Cards/>
 					</ErrorBoundary>
 					<Banner/>
 				</Provider>
-			</div>	
+			</Characters>	
 		</>
 	)	
 }	
+
+const Characters = styled.div`
+	margin-top: 53px;
+	display: flex;
+	justify-content: space-between;
+`;
 
 export default MainPage;

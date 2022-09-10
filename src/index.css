@@ -1,10 +1,4 @@
 body {
-  margin: 0;
-  font-family: "Roboto Condensed", 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
   /* -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -13,11 +7,9 @@ body {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none; */
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: "Roboto Condensed";
+  overflow-x: hidden;
+  color: black;
 }
 
 * {
@@ -25,8 +17,11 @@ code {
   padding: 0;
   box-sizing: border-box;
   border: 0;
+  outline-style: none;
+  text-decoration: none;
 }
 
 a {
   text-decoration: none;
+  color: black;
 }

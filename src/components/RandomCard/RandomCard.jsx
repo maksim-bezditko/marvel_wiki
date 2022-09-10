@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import shield from "../img/mjolnir.png";
-import Error from "./Error";
-import Spinner from "./Spinner"
+import shield from "../../img/mjolnir.png";
+import Error from "../Error/Error";
+import Spinner from "../Spinner/Spinner"
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import useMarvelService from "../services/marvelService";
+import useMarvelService from "../../services/marvelService";
 
 const RandomCardWrapper = styled.div`
 	display: flex;
